@@ -63,4 +63,4 @@ writer.close()
 
 #读取店铺列表
 file_shoplist='shoplist.csv'
-df_shoplist=pd.read_csv(filepath+file_shoplist,index='店铺名')
+df_shoplist=pd.read_csv(files_path+file_shoplist,index='店铺名')
