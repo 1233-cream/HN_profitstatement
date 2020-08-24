@@ -1,6 +1,6 @@
 from flask import Flask 
 import dingtalk_data as dt
-
+import json 
 
 app=Flask(__name__)
 
@@ -18,9 +18,14 @@ def doge():
 def fee_test():
     df=dt.df_read('test_feedetail.csv')
     a=[]
-    for i in df.iloc[:,1]:
-        a=a.append.i 
-    return a
+    for i in df.iloc[2:5,2]:
+        a.append(i) 
+    tuple_a={
+        'code':1,
+        'data':a,
+        'msg':'success'
+    }
+    return tuple_a
 
 
 
