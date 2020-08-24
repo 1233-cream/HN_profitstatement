@@ -1,8 +1,9 @@
-from flask import Flask 
+from flask import Flask,request,jsonify 
 import dingtalk_data as dt
 import json 
 
 app=Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 @app.route('/')
 def helloworld():
@@ -28,7 +29,14 @@ def fee_test():
     return tuple_a
 
 
-
+@app.route('/test',methods=['POST'])
+def post_data():
+    #print('hh')
+    data1=json.loads(request.get_data())
+    postdata = data1['id']+'321'
+    #file = request.files['file']
+    recognize_info = {'id': postdata}
+    return jsonify(recognize_info), 201
 
 
 if __name__ == '__main__':
