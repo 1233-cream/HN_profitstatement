@@ -1,13 +1,25 @@
-arr1=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
-a=int(len(arr1)/7)
-#print(arr1)
-arr=[]
-#print(a)
-for i in range(0,7):
-    for j in range(0,a):
-        arr.append(arr1[i+j*7])
-        print(arr)
+import pandas as pd 
 
 
+#读取目标文件
+df=pd.read_csv(r'C:\Users\LYX\Desktop\data_222.csv')
+print(df.shape)
+list_originalorderno=df.loc[:,'原始单号']
+list1=[]
+for order in list_originalorderno:
+    orders=order.split(',',-1)
+    for i in orders:
+        list1.append(i)
 
-#print(arr)
+print(df.columns.values) 
+print(len(list1)) 
+df_list1=pd.DataFrame(list1,columns=['原始单号'],index=None)
+df_list1.to_csv(r'C:\Users\LYX\Desktop\data_333.csv')
+
+import pymysql 
+
+conn=pymysql.connect(
+    host='localhost',
+    user='root',password='root',
+    database='yipin_2020'
+)
