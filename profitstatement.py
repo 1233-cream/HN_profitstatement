@@ -1,16 +1,6 @@
 
 import pandas as pd 
 
-# df_dtalk=pd.read_excel(r'C:\Users\LYX\Desktop\八月\利润表\利润表_aug.xlsx',encoding='gbk',sheet_name='数据汇总')
-
-# df_dtalk.columns
-
-# #读取钉钉后台导出整理后的数据
-# df_dtalk=df_dtalk.loc[:,['审批编号', '记账金额（元）', '费用所属部门', '费用所属店铺',
-#        '其他-请输入', '一级科目', '二级科目', '三级科目', '所属日期']]
-
-
-# file_path=r'C:\Users\LYX\Desktop\八月\利润表_8月.xlsx'
 def proportion(file_path,sheet_name='Sheet1'):
     df_sndcount=pd.read_excel(file_path,encoding='gbk',sheet_name=sheet_name)
     df_sc=df_sndcount.loc[:,['店铺名','金华仓订单量','义乌仓订单量']]

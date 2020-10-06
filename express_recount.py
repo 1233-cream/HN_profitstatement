@@ -56,8 +56,10 @@ print('超重派送费计算完成')
 sum_xzf=df['续重费'].sum()
 sum_fjf=df['附加费2'].sum()
 sum_psf=df['超重派送费2'].sum()
-count_avg=df[(df['计费重量（kg）']<=3)&(df['计费省份'].map(lambda x : x not in ['海南省','新疆维吾尔自治区','西藏自治区']))].loc[:,'计费重量（kg）'].count()
-mean_avg=df[(df['计费重量（kg）']<=3)&(df['计费省份'].map(lambda x : x not in ['海南省','新疆维吾尔自治区','西藏自治区']))].loc[:,'计费重量（kg）'].mean()
+count_avg=df[(df['计费重量（kg）']<=3)&(df['计费省份'].\
+    map(lambda x : x not in ['海南省','新疆维吾尔自治区','西藏自治区']))].loc[:,'计费重量（kg）'].count()
+mean_avg=df[(df['计费重量（kg）']<=3)&(df['计费省份'].\
+    map(lambda x : x not in ['海南省','新疆维吾尔自治区','西藏自治区']))].loc[:,'计费重量（kg）'].mean()
 avg_cost=round((mean_avg-0.4)*count_avg,2)
 
 
