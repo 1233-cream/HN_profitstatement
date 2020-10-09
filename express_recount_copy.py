@@ -1,6 +1,7 @@
 import pandas as pd 
 import decimal
 import math
+import numpy as np 
 def express_recount(file_path):
     reader=pd.read_csv(file_path,chunksize=100000,iterator=True)
 
@@ -61,6 +62,14 @@ def express_recount(file_path):
     mean_avg=df[(df['计费重量（kg）']<=3)&(df['计费省份'].\
         map(lambda x : x not in ['海南省','新疆维吾尔自治区','西藏自治区']))].loc[:,'计费重量（kg）'].mean()
     avg_cost=round((mean_avg-0.4)*count_avg,2)
+
+    sum_xzf=float(sum_xzf)
+    sum_fjf=float(sum_fjf)
+    sum_psf=float(sum_psf)
+    count_avg=float(count_avg)
+    mean_avg=float(mean_avg)
+    avg_cost=float(avg_cost)
+
 
     dic_result={
         '续重费':sum_xzf,

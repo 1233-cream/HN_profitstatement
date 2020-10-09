@@ -40,7 +40,7 @@ def readcsv(file_path,name,chunk_size=100000):
 
 
 
-input_path=r'C:\Users\LYX\Desktop\八月\8月支付宝账单账单(2)\八月阿里支付宝账单'
+input_path=r'C:\Users\LYX\Desktop\九月\9月账单'
 for root,dirs,files in os.walk(input_path,topdown=True):   #输入文件夹路径
     df_count=pd.DataFrame()
     for name in files:
@@ -62,7 +62,7 @@ print(type(df_count))'''.format(name.split(".",-1)[0]))
     print('Next')
     try:
         df_count=df_count.groupby(['业务描述']).agg(np.sum)
-        df_count.to_csv(r'C:\Users\LYX\Desktop\newdirs\{0}.csv'.format(os.path.split(root)[1]),encoding='gbk')   #输出文件路径
+        df_count.to_csv(r'C:\Users\LYX\Desktop\九月\newdirs\{0}.csv'.format(os.path.split(root)[1]),encoding='gbk')   #输出文件路径
         print('输出{0}成功'.format(os.path.split(root)[1]))
     except:
         print('输出{0}失败'.format(os.path.split(root)[1]))

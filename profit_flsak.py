@@ -4,7 +4,21 @@ import json
 import werkzeug 
 import os
 from express_recount_copy import express_recount
+import numpy
 
+#重写MyEncoder
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, numpy.integer):
+            return int(obj)
+        elif isinstance(obj, numpy.floating):
+            return float(obj)
+        elif isinstance(obj, numpy.ndarray):
+            return obj.tolist()
+        # elif isinstance(obj,decimal):
+        #     return float(obj)
+        else:
+            return super(MyEncoder, self).default(obj)
 
 app=Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -64,7 +78,7 @@ def uploader():
       f = request.files['file']
       f.save(os.path.join( r'D:/代码库/temp_files/',f.filename))
       dic_result=express_recount(os.path.join( r'D:/代码库/temp_files/',f.filename))
-      return render_template('result.html',result=dic_result)
+      return json.dumps(dic_result,cls=MyEncoder)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=9000,debug=True)
