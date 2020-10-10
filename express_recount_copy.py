@@ -63,12 +63,12 @@ def express_recount(file_path):
         map(lambda x : x not in ['海南省','新疆维吾尔自治区','西藏自治区']))].loc[:,'计费重量（kg）'].mean()
     avg_cost=round((mean_avg-0.4)*count_avg,2)
 
-    sum_xzf=float(sum_xzf)
-    sum_fjf=float(sum_fjf)
-    sum_psf=float(sum_psf)
-    count_avg=float(count_avg)
-    mean_avg=float(mean_avg)
-    avg_cost=float(avg_cost)
+    # sum_xzf=float(sum_xzf)
+    # sum_fjf=float(sum_fjf)
+    # sum_psf=float(sum_psf)
+    # count_avg=float(count_avg)
+    # mean_avg=float(mean_avg)
+    # avg_cost=float(avg_cost)
 
 
     dic_result={

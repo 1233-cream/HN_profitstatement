@@ -5,7 +5,7 @@ import werkzeug
 import os
 from express_recount_copy import express_recount
 import numpy
-
+import decimal 
 #重写MyEncoder
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -15,8 +15,8 @@ class MyEncoder(json.JSONEncoder):
             return float(obj)
         elif isinstance(obj, numpy.ndarray):
             return obj.tolist()
-        # elif isinstance(obj,decimal):
-        #     return float(obj)
+        elif isinstance(obj,decimal.Decimal):
+            return float(obj)
         else:
             return super(MyEncoder, self).default(obj)
 
@@ -80,5 +80,23 @@ def uploader():
       dic_result=express_recount(os.path.join( r'D:/代码库/temp_files/',f.filename))
       return json.dumps(dic_result,cls=MyEncoder)
 
+
+@app.route('/reader',methods=['POST'])
+def reader():
+    from df_test import read_test
+    data=json.loads(request.get_data(as_text=True))
+    month_select=data['month']
+    apartment_select=data['apartment']
+    shop_select=data['shop']
+    df_json=read_test(month_select,apartment_select)
+    return df_json
+
+@app.route('/return',methods=['GET','POST'])
+def reback():
+    data=json.loads(request.get_data(as_text=True))
+    return data['name']
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=9000,debug=True)
+    # app.run(host='0.0.0.0',port=9000,debug=True)
+    app.run(port=9000,debug=True)
+    
