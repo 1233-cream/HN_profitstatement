@@ -2,6 +2,8 @@ import pandas as pd
 import decimal
 import math
 import numpy as np 
+import os
+import sys 
 def express_recount(file_path):
     reader=pd.read_csv(file_path,chunksize=100000,iterator=True)
 
@@ -12,7 +14,7 @@ def express_recount(file_path):
     df=pd.concat(chunks,ignore_index=True)
     #print(df.columns)
     df=df.dropna(how='all')
-    tariff=pd.read_csv(r'C:\Users\LYX\Desktop\圆通六七八月账单\圆通续重费价格表.csv',index_col=0)
+    tariff=pd.read_csv(os.path.join(os.path.split(sys.argv[0])[0],'data','price_express.csv'),index_col=0)
     special_area=['海南省','新疆维吾尔自治区','西藏自治区']
     def con_cost(weight,city):
         con_fee=0

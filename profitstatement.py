@@ -30,14 +30,14 @@ def feedetail(file_path,sheet_name='Sheet1'):
     df_read['所属日期']=pd.to_datetime(df_read['所属日期'])
     print(df_read['所属日期'].dtype)
     df_fdl=df_read[(df_read['审批结果']=='同意')&(df_read['审批状态']=='完成')&(df_read['记账金额（元）'].notnull())].\
-        loc[:,['审批编号','记账金额（元）','费用所属部门','费用所属店铺','一级科目',
+        loc[:,['审批编号','摘要','记账金额（元）','费用所属部门','费用所属店铺','一级科目',
     '二级科目','三级科目','所属日期']]
-    df_fdl=df_fdl[(df_fdl['所属日期'].map(lambda x:x.strftime('%m'))=='08')]
+    df_fdl=df_fdl[(df_fdl['所属日期'].map(lambda x:x.strftime('%m'))=='09')]
     return df_fdl 
 
-file_path_proportion=r'C:\Users\LYX\Desktop\八月\利润表准备文件夹\发货单量表.xlsx'
+file_path_proportion=r'C:\Users\LYX\Desktop\九月\利润表\发货单量表.xlsx'
 file_path_department=r'C:\Users\LYX\Desktop\八月\利润表准备文件夹\部门_店铺.xlsx'
-file_path_feedetail=r'C:\Users\LYX\Desktop\八月\利润表准备文件夹\钉钉数据.xlsx'
+file_path_feedetail=r'C:\Users\LYX\Desktop\九月钉钉数据.xlsx'
 df_fdl=feedetail(file_path_feedetail,sheet_name='数据汇总')
 df_sc=proportion(file_path_proportion,sheet_name='Sheet3')
 df_dpt=department(file_path_department,sheet_name='数据段1')
@@ -99,6 +99,6 @@ df_res['记账金额（元）']=df_res.apply(lambda x:x['记账金额（元）']
 
 
 
-df_fdl.to_excel(r'C:\Users\LYX\Desktop\八月\利润表\df_fdl.xlsx',encoding='gbk',index=None)
-df_sc.to_excel(r'C:\Users\LYX\Desktop\八月\利润表\df_sc.xlsx',encoding='gbk',index=None)
-df_res.to_excel(r'C:\Users\LYX\Desktop\八月\利润表\df_res.xlsx',encoding='gbk',index=None)
+df_fdl.to_excel(r'C:\Users\LYX\Desktop\九月\利润表\df_fdl.xlsx',encoding='gbk',index=None)
+df_sc.to_excel(r'C:\Users\LYX\Desktop\九月\利润表\df_sc.xlsx',encoding='gbk',index=None)
+df_res.to_excel(r'C:\Users\LYX\Desktop\九月\利润表\df_res.xlsx',encoding='gbk',index=None)

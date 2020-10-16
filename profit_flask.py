@@ -3,6 +3,7 @@ from flask import Flask,request,jsonify,render_template
 import json 
 import werkzeug 
 import os
+import sys 
 from express_recount_copy import express_recount
 import numpy
 import decimal 
@@ -23,30 +24,11 @@ class MyEncoder(json.JSONEncoder):
 app=Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
-@app.route('/')
-def helloworld():
-    return 'Hello World!'
+@app.route('/hello')
+def hello():
+    return 'Hello World'
 
-
-@app.route('/doge')
-def doge():
-    return '你是狗崽子吗!'
-
-
-# @app.route('/fee_test')
-# def fee_test():
-#     df=dt.df_read('test_feedetail.csv')
-#     a=[]
-#     for i in df.iloc[2:5,2]:
-#         a.append(i) 
-#     tuple_a={
-#         'code':1,
-#         'data':a,
-#         'msg':'success'
-#     }
-#     return tuple_a
-
-
+    
 @app.route('/test',methods=['POST'])
 def post_data():
     #print('hh')
@@ -76,9 +58,13 @@ def upload_file():
 def uploader():
    if request.method == 'POST':
       f = request.files['file']
-      f.save(os.path.join( r'D:/代码库/temp_files/',f.filename))
-      dic_result=express_recount(os.path.join( r'D:/代码库/temp_files/',f.filename))
-      return json.dumps(dic_result,cls=MyEncoder)
+      f.save(os.path.join( os.path.split(sys.argv[0])[0],'temp_file',f.filename))
+      dic_result=express_recount(os.path.join( os.path.split(sys.argv[0])[0],'temp_file',f.filename))
+      return json.dumps({
+          'code':"1",
+          'data':dic_result,
+          'msg':'succee'
+          },cls=MyEncoder)   
 
 
 @app.route('/reader',methods=['POST'])
@@ -96,7 +82,14 @@ def reback():
     data=json.loads(request.get_data(as_text=True))
     return data['name']
 
+@app.route('/proformance',methods=['POST'])
+def proformance():
+    pass
+
+
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0',port=9000,debug=True)
-    app.run(port=9000,debug=True)
+    from werkzeug.contrib.fixers import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app)
+    app.run()
+    #app.run()
     
