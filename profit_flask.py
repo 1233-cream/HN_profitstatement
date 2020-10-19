@@ -26,7 +26,7 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route('/hello')
 def hello():
-    return 'Hello World'
+    return '王硕猪仔'
 
     
 @app.route('/test',methods=['POST'])
@@ -53,18 +53,20 @@ def result():
 def upload_file():
    return render_template('upload.html')
 
-#文件的接受和保存
+#文件的接收保存
 @app.route('/uploader',methods=['GET','POST'])
 def uploader():
-   if request.method == 'POST':
-      f = request.files['file']
-      f.save(os.path.join( os.path.split(sys.argv[0])[0],'temp_file',f.filename))
-      dic_result=express_recount(os.path.join( os.path.split(sys.argv[0])[0],'temp_file',f.filename))
-      return json.dumps({
-          'code':"1",
-          'data':dic_result,
-          'msg':'succee'
-          },cls=MyEncoder)   
+    if request.method == 'POST':
+        f = request.files['file']
+        f.save(os.path.join( os.path.split(sys.argv[0])[0],'temp_file',f.filename))
+        dic_result=express_recount(os.path.join( os.path.split(sys.argv[0])[0],'temp_file',f.filename))
+    #   return render_template('result.html',result=dic_result)
+    return json.dumps(dic_result,cls=MyEncoder)
+    #   return json.dumps({
+    #       'code':"1",
+    #       'data':dic_result,
+    #       'msg':'succee'
+    #       },cls=MyEncoder)   
 
 
 @app.route('/reader',methods=['POST'])
@@ -86,10 +88,17 @@ def reback():
 def proformance():
     pass
 
+@app.route('/test1',methods=['POST'])
+def test1():
+    f=request.files['file']
+    import f_read
+    f_list=f_read.fread(f)
+    return render_template('result.html',result=f_list)
+
 
 if __name__ == '__main__':
-    from werkzeug.contrib.fixers import ProxyFix
-    app.wsgi_app = ProxyFix(app.wsgi_app)
+    # from werkzeug.contrib.fixers import ProxyFix
+    # app.wsgi_app = ProxyFix(app.wsgi_app)
     app.run()
     #app.run()
     

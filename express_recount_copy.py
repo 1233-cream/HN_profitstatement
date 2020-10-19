@@ -33,15 +33,9 @@ def express_recount(file_path):
     def surcharges(weight,city):
         surcharge=0
         if city=='北京':
-            if weight<=3:
-                surcharge=0.8
-            else:
-                surcharge=0.8+int(weight)*0.5
+            surcharge=0.8+int(weight)*0.5
         if city=='上海':
-            if weight<=2:
-                surcharge=0.5
-            else:
-                surcharge=0.5+int(weight)*0.2
+            surcharge=0.5+int(weight)*0.2
         surcharge=decimal.Decimal.from_float(surcharge).quantize(decimal.Decimal('0.000'))
         return surcharge
 
